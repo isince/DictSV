@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/search_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#CCCCCC"
+    android:padding="5dp">
+
+    <!-- Linear Layout ไว้ครอบปุ่มหมวดและ Edit Text ไว้ค้นหา -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout"
+        android:background="@drawable/my_bg"
+        android:paddingRight="4dp"
+        android:paddingTop="4dp"
+        android:paddingLeft="4dp"
+        android:paddingBottom="4dp"
+
+        android:layout_marginBottom="4dp">
+
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edt_search"
+            android:inputType="text"
+            android:hint="ค้นหา..."
+            android:background="@drawable/custom_edit_bg"
+
+            />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/search_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="3dp"
+        android:drawSelectorOnTop="true"
+        android:listSelector="@android:color/transparent"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <!-- List View android:id="@android:id/list" -->
+
+
+</RelativeLayout>

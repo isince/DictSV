@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">DictSV</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="inputSearch">กรุณาค้นหา...</string>
+    <string name="Search" translatable="false">Favorite</string>
+    <string name="Edit" translatable="false">EditFrag</string>
+    <string name="Cat_btn">หมวด</string>
+
+    <string name="tv_cat">หมวดหมู่</string>
+
+    <string name="title_activity_main">MainActivity</string>
+    <!--<string name="title_activity_te">te</string>-->
+    <!--<string name="title_activity_my_activity2">MyActivity2</string>-->
+
+    //Edit Fragment
+    ////Vocab
+    <string name="vocab_word_textview">ศัพท์</string>
+    <string name="vocab_word_hint">เพิ่มหรือแก้ไขคำศัพท์</string>
+    <string name="vocab_terminology_textview">ศัพท์บัญญัติ</string>
+    <string name="vocab_terminology_hint">เพิ่มหรือแก้ไขศัพท์บัญญัติ</string>
+    <string name="vocab_transliterated_textview">คำทับศัพท์</string>
+    <string name="vocab_transliterated_hint">เพิ่มหรือแก้ไขคำทับศัพท์</string>
+    <string name="vocab_category_textview">หมวดหมู่</string>
+
+    <string name="vocab_save_btn">บันทึก</string>
+    <string name="vocab_clear_btn">ล้างข้อมูล</string>
+    //Category
+    <string name="category_name_textview">หมวดหมู่</string>
+    <string name="category_name_hint">เพิ่มหรือแก้ไขหมวดหมู่</string>
+
+    <string name="category_submit_add_btn">บันทึก</string>
+    <string name="category_clear_btn">ล้างข้อมูล</string>
+    <string name="category_delete_btn">ลบหมวด</string>
+    <string name="category_submit_edit_btn">แก้ไข</string>
+    <string name="category_name_edit_hint_tv">เปลี่ยนชื่อหมวด</string>
+    <string name="category_name_add_hint_tv">เพิ่มหมวดใหม่</string>
+</resources>

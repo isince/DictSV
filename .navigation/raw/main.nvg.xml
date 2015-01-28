@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigationModel
+  ns = "http://schemas.android.com?import=com.android.navigation.*">
+  <locations  
+    class = "java.util.ArrayList">
+    <entry>
+      <key      
+        class = "com.android.navigation.ActivityState"      
+        className = "com.mycompany.myapp.te">
+        <location        
+          id = "point0"        
+          x = "0"        
+          y = "0"/>
+      </key>
+      <value      
+        x = "500"      
+        y = "100"      
+        class = "com.android.navigation.Point"/>
+    </entry>
+    <entry>
+      <key      
+        class = "com.android.navigation.ActivityState"      
+        className = "nd.dictsv.Fragment.SearchFragment">
+        <location        
+          idref = "point0"/>
+      </key>
+      <value      
+        x = "2560"      
+        y = "160"      
+        class = "com.android.navigation.Point"/>
+    </entry>
+    <entry>
+      <key      
+        class = "com.android.navigation.ActivityState"      
+        className = "nd.dictsv.DAO.DBHelper">
+        <location        
+          idref = "point0"/>
+      </key>
+      <value      
+        x = "2560"      
+        y = "640"      
+        class = "com.android.navigation.Point"/>
+    </entry>
+    <entry>
+      <key      
+        class = "com.android.navigation.ActivityState"      
+        className = "nd.dictsv.WordDB">
+        <location        
+          idref = "point0"/>
+      </key>
+      <value      
+        x = "2560"      
+        y = "0"      
+        class = "com.android.navigation.Point"/>
+    </entry>
+    <entry>
+      <key      
+        class = "com.android.navigation.ActivityState"      
+        className = "com.mycompany.myapp.MainActivity">
+        <location        
+          idref = "point0"/>
+      </key>
+      <value      
+        x = "640"      
+        y = "320"      
+        class = "com.android.navigation.Point"/>
+    </entry>
+    <entry>
+      <key      
+        class = "com.android.navigation.ActivityState"      
+        className = "nd.dictsv.Fragment.EditFragment">
+        <location        
+          idref = "point0"/>
+      </key>
+      <value      
+        x = "1920"      
+        y = "640"      
+        class = "com.android.navigation.Point"/>
+    </entry>
+    <entry>
+      <key      
+        class = "com.android.navigation.MenuState"      
+        xmlResourceName = "te">
+        <location        
+          idref = "point0"/>
+      </key>
+      <value      
+        x = "1480"      
+        y = "100"      
+        class = "com.android.navigation.Point"/>
+    </entry>
+    <entry>
+      <key      
+        class = "com.android.navigation.ActivityState"      
+        className = "nd.dictsv.Fragment.FavoriteFragment">
+        <location        
+          idref = "point0"/>
+      </key>
+      <value      
+        x = "1280"      
+        y = "0"      
+        class = "com.android.navigation.Point"/>
+    </entry>
+    <entry>
+      <key      
+        class = "com.android.navigation.MenuState"      
+        xmlResourceName = "my">
+        <location        
+          idref = "point0"/>
+      </key>
+      <value      
+        x = "1920"      
+        y = "160"      
+        class = "com.android.navigation.Point"/>
+    </entry>
+    <entry>
+      <key      
+        class = "com.android.navigation.ActivityState"      
+        className = "nd.dictsv.MyActivity">
+        <location        
+          idref = "point0"/>
+      </key>
+      <value      
+        x = "480"      
+        y = "160"      
+        class = "com.android.navigation.Point"/>
+    </entry>
+    <entry>
+      <key      
+        class = "com.android.navigation.MenuState"      
+        xmlResourceName = "main">
+        <location        
+          idref = "point0"/>
+      </key>
+      <value      
+        x = "1440"      
+        y = "160"      
+        class = "com.android.navigation.Point"/>
+    </entry>
+  </locations>
+</navigationModel>

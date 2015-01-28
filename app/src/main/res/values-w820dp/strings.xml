@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="inputSearch">กรุณาค้นหา...</string>
+    <!--<string name="AutoCompleteTextview">New AutoCompleteTextView</string>-->
+    <string name="Cat_btn">หมวด</string>
+    <string name="vocab_word_hint">เพิ่มหรือแก้ไขคำศัพท์</string>
+
+</resources>
