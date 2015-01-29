@@ -174,7 +174,7 @@ public class WordDAO {
         return mapWordDAO;
     }
 
-    public HashMap<Long,Word> getAllWordHashMapInt(){
+    public HashMap<Long,Word> getAllWordHashMapLong(){
 
         HashMap<Long,Word> mapWordDAOInt = new HashMap<>();
 

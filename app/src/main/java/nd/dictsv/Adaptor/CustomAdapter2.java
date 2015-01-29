@@ -26,16 +26,16 @@ public class CustomAdapter2 extends BaseAdapter{
     private LayoutInflater mInflater;
     private Context mContext;
 
-    private HashMap<String,Word> words;
+    private HashMap<Long,Word> words;
     private HashMap<Integer,Category> categories;
-    private String[] mWordKey;
+    private Long[] mWordKey;
     private Category category;
 
-    public CustomAdapter2(Context context, HashMap<String,Word> words,
+    public CustomAdapter2(Context context, HashMap<Long,Word> words,
                           HashMap<Integer,Category> categories) {
         this.mContext = context;
         this.words = words;
-        this.mWordKey = words.keySet().toArray(new String[words.size()]);
+        this.mWordKey = words.keySet().toArray(new Long[words.size()]);
         this.categories = categories;
         this.mInflater = (LayoutInflater)mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);

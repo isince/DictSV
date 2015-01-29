@@ -38,7 +38,7 @@ public class SearchFragment extends Fragment {
 
     private List<Word> words;
     HashMap<String, Word> wordHashMap;
-    HashMap<Long, Word> wordHashMapInt;
+    HashMap<Long, Word> wordHashMapLong;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,11 +53,11 @@ public class SearchFragment extends Fragment {
         //words = wordDAO.getAllWord();
         //TODO john
         wordHashMap = wordDAO.getAllWordHashMap();
-        wordHashMapInt = wordDAO.getAllWordHashMapInt();
+        wordHashMapLong = wordDAO.getAllWordHashMapLong();
 
 
-        if (wordHashMap.isEmpty()) Message.shortToast(getActivity(), TAG, "Empty");
-        CustomAdapter2 customAdapter2 = new CustomAdapter2(getActivity(), wordHashMap,
+        if (wordHashMapLong.isEmpty()) Message.shortToast(getActivity(), TAG, "Empty");
+        CustomAdapter2 customAdapter2 = new CustomAdapter2(getActivity(), wordHashMapLong,
                 new CategoryDAO(getActivity()).getAllCategoryHashmap());
         listViewSearch.setAdapter(customAdapter2);
 
@@ -82,7 +82,7 @@ public class SearchFragment extends Fragment {
                 } else {
 
                     SearchingTask searchingTask = new SearchingTask(getActivity(), listViewSearch,
-                            inputText, wordHashMap);
+                            inputText, wordHashMapLong);
                     searchingTask.execute();
                 }
 

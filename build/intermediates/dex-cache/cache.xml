@@ -2,18 +2,18 @@
 <items version="2" >
 
     <item
+        jar="D:\Work\002_Android\02_Project Work\580129_DictSV\DictSV\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="D:\Work\002_Android\02_Project Work\580129_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\classes-aad1a7940ff41de0ed1945f80b5bb8a141998f9a.jar" />
+    </item>
+    <item
         jar="D:\Work\002_Android\02_Project Work\580118_DictSV\DictSV\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
         <dex dex="D:\Work\002_Android\02_Project Work\580118_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\classes-f44f9abb6b30582be098f082f3fbedad2ff2a2e6.jar" />
-    </item>
-    <item
-        jar="D:\Work\002_Android\01_Prototype\580118_DictSV\DictSV\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="D:\Work\002_Android\01_Prototype\580118_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\classes-c14ca7751c05ca4d5203c30126a963f7cb385027.jar" />
     </item>
     <item
         jar="D:\Work\002_Android\02_Project Work\580125_DictSV\DictSV\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
@@ -23,18 +23,11 @@
         <dex dex="D:\Work\002_Android\02_Project Work\580125_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\classes-a8822dc473b0dbf3ed454c9d7467fdb2cceb6fb9.jar" />
     </item>
     <item
-        jar="C:\Users\Since\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jar="D:\Work\002_Android\02_Project Work\580129_DictSV\DictSV\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="D:\Work\002_Android\01_Prototype\580118_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-01de9139944bcc2b93fee76a880f6b30dd429e01.jar" />
-    </item>
-    <item
-        jar="D:\Work\002_Android\02_Project Work\580118_DictSV\DictSV\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="D:\Work\002_Android\02_Project Work\580118_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\classes-8f48d36df8c7ce835f039179cd44aabf2f712d23.jar" />
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="D:\Work\002_Android\02_Project Work\580129_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-9f534730e5d4f110f7b5a31e92db4757ecdd60d2.jar" />
     </item>
     <item
         jar="D:\Work\002_Android\01_Prototype\580118_DictSV\DictSV\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
@@ -58,18 +51,46 @@
         <dex dex="D:\Work\002_Android\01_Prototype\580118_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\classes-c952ac0a0abb15f309028a935fe7a372b29ad814.jar" />
     </item>
     <item
-        jar="D:\Work\002_Android\02_Project Work\580125_DictSV\DictSV\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="D:\Work\002_Android\02_Project Work\580125_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-f4f5fbeeb64bb0023a03c457d2929706954b2e89.jar" />
-    </item>
-    <item
         jar="D:\Work\002_Android\02_Project Work\580125_DictSV\DictSV\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
         <dex dex="D:\Work\002_Android\02_Project Work\580125_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\classes-7a149f3665230d811421d5edae3ab99bccf6101c.jar" />
+    </item>
+    <item
+        jar="D:\Work\002_Android\01_Prototype\580118_DictSV\DictSV\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="D:\Work\002_Android\01_Prototype\580118_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\classes-c14ca7751c05ca4d5203c30126a963f7cb385027.jar" />
+    </item>
+    <item
+        jar="C:\Users\Since\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="D:\Work\002_Android\01_Prototype\580118_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-01de9139944bcc2b93fee76a880f6b30dd429e01.jar" />
+    </item>
+    <item
+        jar="D:\Work\002_Android\02_Project Work\580129_DictSV\DictSV\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="D:\Work\002_Android\02_Project Work\580129_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\classes-919a6089dc077ad0ed49121c7ec6dbec3ef4010c.jar" />
+    </item>
+    <item
+        jar="D:\Work\002_Android\02_Project Work\580118_DictSV\DictSV\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="D:\Work\002_Android\02_Project Work\580118_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\classes-8f48d36df8c7ce835f039179cd44aabf2f712d23.jar" />
+    </item>
+    <item
+        jar="D:\Work\002_Android\02_Project Work\580125_DictSV\DictSV\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="D:\Work\002_Android\02_Project Work\580125_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-f4f5fbeeb64bb0023a03c457d2929706954b2e89.jar" />
     </item>
 
 </items>

@@ -104,7 +104,7 @@ public class FavoriteDAO {
         word = new Word();
         WordDAO wordDAO = new WordDAO(mContext);
 
-        wordsHashmap = wordDAO.getAllWordHashMapInt();
+        wordsHashmap = wordDAO.getAllWordHashMapLong();
 
         for (long favKey : getAllFavorite().keySet()){
            /* word.get(favKey)
