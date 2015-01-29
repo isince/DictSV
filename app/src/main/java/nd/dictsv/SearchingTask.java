@@ -2,7 +2,6 @@ package nd.dictsv;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.ListView;
 
 import java.util.HashMap;

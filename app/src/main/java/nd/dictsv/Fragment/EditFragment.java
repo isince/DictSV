@@ -137,6 +137,23 @@ public class EditFragment extends Fragment {
                 CheckVocab();
             }
         });
+        edt_cat_name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(edt_cat_name.getText().toString().trim().isEmpty()) btn_cat_save.setEnabled(false);
+                else btn_cat_save.setEnabled(true);
+            }
+        });
         return rootView;
     }
 
@@ -181,6 +198,7 @@ public class EditFragment extends Fragment {
     }
 
     public void addCategory() {
+        Boolean chk = false;
         category = new Category();
         categoryDAO = new CategoryDAO(getActivity());
 
@@ -189,7 +207,14 @@ public class EditFragment extends Fragment {
         if (!isEmpty(edt_cat_name)) {
             Message.toast2(getActivity(), "have text");
             if (cateSpinerCatID == 0) {//New
-                categoryDAO.addCategory(category.getmName().trim());
+                for (String categoryName : categoryDAO.getAllCategoryList()){
+                    if(category.getmName().trim().equals(categoryName)){
+                        Message.LogE("addCategory forLoop","พบหมวดซ้ำ-"+category.getmName());
+                        chk = false;
+                    }
+                    else chk = true;
+                }
+                if(chk) categoryDAO.addCategory(category.getmName().trim());
             } else {//Edit
                 categoryDAO.updateCategory(category);
             }
@@ -268,6 +293,10 @@ public class EditFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //set position item
                 cateSpinerCatID = (int) id;
+
+                //set enable button
+                if(cateSpinerCatID>0) btn_cat_delete.setEnabled(true);
+                else btn_cat_delete.setEnabled(false);
 
                 Category category = categoryDAO.getCatIDByName(CategoryList2.get(cateSpinerCatID));
                 cateCatID = category.getmId();
