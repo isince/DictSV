@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -173,8 +174,37 @@ public class WordDAO {
         return mapWordDAO;
     }
 
+    public HashMap<Long,Word> getAllWordHashMapInt(){
+
+        HashMap<Long,Word> mapWordDAOInt = new HashMap<>();
+
+        //SELECT ALL FROM words
+        Cursor cursor = mDatabase.query(DBHelper.TABLE_WORDS, mAllColumns,
+                null, null, null, null, null);
+
+        if(cursor!=null){
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()){
+                word = cursorToWord(cursor);
+                mapWordDAOInt.put(word.getmId(), word);
+
+                //move cursor
+                cursor.moveToNext();
+            }
+        }
+
+        //Log-Debug toast all HashMap
+        for (Long  wordID : mapWordDAOInt.keySet()){
+            Message.LogE(TAG, "HashMap : " + wordID);
+        }
+
+        cursor.close();
+        return mapWordDAOInt;
+    }
+
     //void
-    public List<Word> getWordByCategoryID(long id){
+    public List<Word> getWordByCategoryID(int id){
 
         List<Word> listWord = new ArrayList<>();
         word = new Word();
@@ -211,13 +241,6 @@ public class WordDAO {
 
         //Log-Debug getWordByCategoryID
         Message.toast2(mContext, buffer.toString());
-
-        /*boolean getWord;
-        if (cursor!=null) {
-            getWord = true;
-        } else {
-            getWord = false;
-        }*/
 
         if(cursor!=null) {
             cursor.close();
@@ -256,10 +279,12 @@ public class WordDAO {
     public void deleteWord(Word word){
         long id = word.getmId();
 
+        Message.LogE(TAG, "del:" + word.getmId()+ " : " +word.getmWord());
         //DELETE FROM WORD WHERE word_id = 0
-        String[] whereArgs = {String.valueOf(id)};
-        int delID = mDatabase.delete(DBHelper.TABLE_WORDS
-                , DBHelper.COLUMN_WORD_ID + "=?", whereArgs);
+        String[] whereArgs = {String.valueOf(word.getmId())};
+        int delID = mDatabase.delete(DBHelper.TABLE_WORDS,
+                DBHelper.COLUMN_WORD_ID+"= ?", whereArgs);
+
 
         //Log-Debug deleteWord
         //database.delete return 1(Successful) and 0(Unsuccessful)
@@ -273,8 +298,10 @@ public class WordDAO {
     public Word cursorToWord(Cursor cursor){
         word = new Word();
         category = new Category();
-        word.setmWord(cursor.getString(
-                cursor.getColumnIndex(DBHelper.COLUMN_WORD_WORD)));
+        word.setmId(cursor.getLong(cursor.getColumnIndex(
+                DBHelper.COLUMN_WORD_ID)));
+        word.setmWord(cursor.getString(cursor.getColumnIndex(
+                DBHelper.COLUMN_WORD_WORD)));
         word.setmTrans(cursor.getString(cursor.getColumnIndex(
                 DBHelper.COLUMN_WORD_TRANSLITERATED)));
         word.setmTermino(cursor.getString(cursor.getColumnIndex(
@@ -285,10 +312,6 @@ public class WordDAO {
         word.setmCategory(category);
 
         return word;
-    }
-
-    public void clearHashmap(){
-        mapWordDAO.clear();
     }
 
 }

@@ -13,18 +13,16 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import nd.dictsv.Adaptor.CustomAdapter2;
-import nd.dictsv.DAO.Category;
 import nd.dictsv.DAO.CategoryDAO;
 import nd.dictsv.DAO.Word;
 import nd.dictsv.DAO.WordDAO;
 import nd.dictsv.Debug.Message;
 import nd.dictsv.R;
-import nd.dictsv.SeachingTask;
+import nd.dictsv.SearchingTask;
 
 
 /**
@@ -40,6 +38,7 @@ public class SearchFragment extends Fragment {
 
     private List<Word> words;
     HashMap<String, Word> wordHashMap;
+    HashMap<Long, Word> wordHashMapInt;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,10 +53,12 @@ public class SearchFragment extends Fragment {
         //words = wordDAO.getAllWord();
         //TODO john
         wordHashMap = wordDAO.getAllWordHashMap();
+        wordHashMapInt = wordDAO.getAllWordHashMapInt();
+
 
         if (wordHashMap.isEmpty()) Message.shortToast(getActivity(), TAG, "Empty");
         CustomAdapter2 customAdapter2 = new CustomAdapter2(getActivity(), wordHashMap,
-                new CategoryDAO(getActivity()).getAllCategory());
+                new CategoryDAO(getActivity()).getAllCategoryHashmap());
         listViewSearch.setAdapter(customAdapter2);
 
         edt_search.addTextChangedListener(new TextWatcher() {
@@ -79,70 +80,16 @@ public class SearchFragment extends Fragment {
                 if (inputText.length()==0) {
                     listViewSearch.setAdapter(null);
                 } else {
-                    /*CustomAdapter2 autoCompleteAdapter =
-                            listviewAutocomplete(inputText, wordHashMap);
-                    listViewSearch.setAdapter(autoCompleteAdapter);*/
-                    SeachingTask seachingTask = new SeachingTask(getActivity(), listViewSearch,
+
+                    SearchingTask searchingTask = new SearchingTask(getActivity(), listViewSearch,
                             inputText, wordHashMap);
-                    seachingTask.execute();
+                    searchingTask.execute();
                 }
 
             }
         });
 
+
         return rootView;
-    }
-
-    private CustomAdapter2 listviewAutocomplete(String inputText, HashMap<String,Word> words){
-        CategoryDAO categoryDAO = new CategoryDAO(getActivity());
-        List<Category> categories = categoryDAO.getAllCategory();
-
-        HashMap<String,Word> AutoText_Words = new HashMap<>();
-        int textLength = inputText.length();
-
-        if (inputText.length()==0){
-            return null;
-        } else {
-            if (inputText.matches(".*[ก-๙].*")) {
-                Message.toast2(getActivity(), "thai");
-
-                for(String keyWord : words.keySet()){
-                    Word word = words.get(keyWord);
-                    try{
-                        if (inputText.equalsIgnoreCase(word.getmTrans()
-                                .subSequence(0, textLength).toString())){
-                            AutoText_Words.put(word.getmWord(), word);
-                        } else if(inputText.equalsIgnoreCase(word.getmTermino()
-                                .subSequence(0, textLength).toString())) {
-                            AutoText_Words.put(word.getmWord(), word);
-                        }
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            else if (inputText.matches("[a-z,A-Z].*")){
-                Message.toast2(getActivity(), "Eng");
-
-                for(String keyWord : words.keySet()){
-                    Word word = words.get(keyWord);
-                    try {
-                        if (inputText.equalsIgnoreCase(word.getmWord()
-                                .subSequence(0, textLength).toString())){
-                            AutoText_Words.put(word.getmWord(), word);
-                        }else if(inputText.equalsIgnoreCase(word.getmTermino()
-                                .subSequence(0, textLength).toString())) {
-                            AutoText_Words.put(word.getmWord(), word);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            return new CustomAdapter2(getActivity(), AutoText_Words, categories);
-
-        }
     }
 }

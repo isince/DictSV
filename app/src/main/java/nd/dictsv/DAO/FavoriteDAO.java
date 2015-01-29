@@ -68,9 +68,9 @@ public class FavoriteDAO {
     }
 
     //HashMap<String,Word>
-    public void getAllFavorite(){
+    public HashMap<Long,Favorite> getAllFavorite(){
 
-        HashMap<String,Favorite> favorities = new HashMap<>();
+        HashMap<Long,Favorite> favorities = new HashMap<>();
         word = new Word();
 
         //Selsect all
@@ -83,7 +83,7 @@ public class FavoriteDAO {
 
             while (!cursor.isAfterLast()) {
                 favorite = cursorToFavorite(cursor);
-                favorities.put(String.valueOf(favorite.getmId()), favorite);
+                favorities.put(favorite.getmId(), favorite);
 
                 //Log-Debug getAllFavorite
                 Message.LogE(TAG, favorite.getmId() + " : " + favorite.getWord().getmId());
@@ -94,6 +94,23 @@ public class FavoriteDAO {
         } else {
             Message.longToast(mContext, TAG, "Cursor not create");
         }
+
+        return favorities;
+    }
+
+    public void getAllFavoriteWord(){
+        HashMap<String, Favorite> favoritiesWord;
+        HashMap<Long, Word> wordsHashmap;
+        word = new Word();
+        WordDAO wordDAO = new WordDAO(mContext);
+
+        wordsHashmap = wordDAO.getAllWordHashMapInt();
+
+        for (long favKey : getAllFavorite().keySet()){
+           /* word.get(favKey)
+            favoritiesWord.put(*/
+        }
+
     }
 
     public void deleteFavorite(){

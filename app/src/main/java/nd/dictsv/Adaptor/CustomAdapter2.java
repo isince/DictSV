@@ -27,10 +27,12 @@ public class CustomAdapter2 extends BaseAdapter{
     private Context mContext;
 
     private HashMap<String,Word> words;
-    private List<Category> categories;
+    private HashMap<Integer,Category> categories;
     private String[] mWordKey;
+    private Category category;
 
-    public CustomAdapter2(Context context, HashMap<String,Word> words, List<Category> categories) {
+    public CustomAdapter2(Context context, HashMap<String,Word> words,
+                          HashMap<Integer,Category> categories) {
         this.mContext = context;
         this.words = words;
         this.mWordKey = words.keySet().toArray(new String[words.size()]);
@@ -83,13 +85,17 @@ public class CustomAdapter2 extends BaseAdapter{
         ///Word
         Word word = words.get(mWordKey[position]);
         mViewHolder.word.setText(word.getmWord());
+        Message.LogE("Customaadapter", word.getmWord()+"");//TODO D
         if(word.getmTermino()!=null) {
             mViewHolder.trans.setText(word.getmTermino());
         } else {
             mViewHolder.trans.setText(word.getmTrans());
         }
         ///Category
-        Category category = word.getmCategory();
+        category = new Category();
+        category = word.getmCategory();
+        //String categoryName = categories.get(category.getmId()).getmName();
+        Message.LogE("Customaadapter", category.getmId()+"");//TODO D
         String categoryName = categories.get(category.getmId()).getmName();
         mViewHolder.category.setText(categoryName);
         ///favorite

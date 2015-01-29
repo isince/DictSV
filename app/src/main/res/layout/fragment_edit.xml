@@ -139,6 +139,9 @@
                             android:layout_marginTop="5dp"
                             android:background="@drawable/button"
                             android:padding="10dp"
+                            android:enabled="false"
+
+
                             android:text="@string/vocab_save_btn" />
 
                         <Button

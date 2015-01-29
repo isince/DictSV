@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import nd.dictsv.Debug.Message;
@@ -135,6 +136,35 @@ public class CategoryDAO {
         return listCategory;
     }
 
+    public HashMap<Integer ,Category> getAllCategoryHashmap() {
+        HashMap<Integer,Category> mapCategoryDAO = new HashMap<>();
+
+        //SELECT ALL FROM category
+        Cursor cursor = mDatabase.query(DBHelper.TABLE_CATEGORY, mAllColumns,
+                null, null, null, null, null);
+
+        if(cursor!=null){
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()){
+                category = cursorToCategory(cursor);
+                mapCategoryDAO.put(category.getmId(), category);
+
+                //move cursor
+                cursor.moveToNext();
+            }
+        }
+
+        //Log-Debug toast all HashMap
+        for (int id : mapCategoryDAO.keySet()){
+            Message.LogE(TAG, "HashMap : " + id);
+        }
+
+        cursor.close();
+
+        return mapCategoryDAO;
+    }
+
     //return arraylist<String>
     public List<String> getAllCategoryList(){
 
@@ -225,12 +255,12 @@ public class CategoryDAO {
         listWords = wordDAO.getWordByCategoryID(category.getmId());
 
         if (!listWords.isEmpty()){
-            Message.toast2(mContext, "IF");
+            Message.toast2(mContext, "มีคำศัพท์");
             for(Word mWord : listWords){
                 wordDAO.deleteWord(mWord);
             }
         } else {
-            Message.longToast(mContext, TAG, "Category no data");
+            Message.shortToast(mContext, TAG, "Category no data");
         }
 
         Message.toast2(mContext, "Delete..." + category.getmId() + " - " + category.getmName());
@@ -247,11 +277,44 @@ public class CategoryDAO {
         }
     }
 
+    public Category getCatIDByName(String categoryName){
+
+        //SELECT * FROM category WHERE category_id = id
+        Category category = new Category();
+        String[] whereArgs = new String[]{String.valueOf(categoryName)};
+        Cursor cursor = mDatabase.query(DBHelper.TABLE_CATEGORY, mAllColumns,
+                DBHelper.COLUMN_CATEGORY_NAME + "=?",whereArgs, null, null, null, null);
+
+        //cursor management
+        if (cursor!=null){
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                category = cursorToCategory(cursor);
+
+                cursor.moveToNext();
+            }
+        } else {
+            Message.LogE(TAG, "getCatIDByName is null");
+        }
+
+
+
+        //Log-Debug getCategoryById
+        Message.longToast(mContext, TAG, category.getmId() + " - " + category.getmName());
+
+        //close
+        cursor.close();
+        return category;
+    }
+
     private Category cursorToCategory(Cursor cursor){
         Category category = new Category();
+        category.setmId(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_CATEGORY_ID)));
         category.setmName(cursor.getString(
                 cursor.getColumnIndex(DBHelper.COLUMN_CATEGORY_NAME)));
 
         return category;
     }
+
+
 }
