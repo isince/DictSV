@@ -21,6 +21,14 @@ public class Word {
         this.mCategory = category;
     }
 
+    public Word(long id, String word, String transliterated, String terminology, Category category) {
+        this.mId = id;
+        this.mWord = word;
+        this.mTrans = transliterated;
+        this.mTermino = terminology;
+        this.mCategory = category;
+    }
+
     public long getmId() {
         return mId;
     }

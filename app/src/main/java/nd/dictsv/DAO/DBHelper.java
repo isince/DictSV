@@ -29,8 +29,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TABLE_WORDS = "Words";
     public static final String COLUMN_WORD_ID = "_id";                                              //primary key ต้องไว้คอลัมแรก
     public static final String COLUMN_WORD_WORD = "Word";
-    public static final String COLUMN_WORD_TRANSLITERATED = "trans";                                      // คำทับศัพท์
     public static final String COLUMN_WORD_TERMINOLOGY = "ter";
+    public static final String COLUMN_WORD_TRANSLITERATED = "trans";                                      // คำทับศัพท์
     public static final String COLUMN_WORD_CATEGORY_ID = "cate_id";
 
     //Table Catagory
@@ -66,7 +66,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_CREATE_FAVORITE = "CREATE TABLE "
             + TABLE_FAVORITE + "("
             + COLUMN_FAVORITE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + COLUMN_FAVORITE_WORD_ID + "LONG"
+            + COLUMN_FAVORITE_WORD_ID + " LONG"
             +");";
 
     // Table Category

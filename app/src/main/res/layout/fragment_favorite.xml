@@ -5,35 +5,16 @@
     android:orientation="vertical"
     android:background="#CCCCCC" >
 
-    <TextView android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="test"
-        android:textSize="20dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textView" />
-
-
-
-    <Button
+    <ListView
+        android:id="@+id/Favorite_listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="get all word"
-        android:id="@+id/debug_getAll_word_btn"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="39dp" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="get all Cat"
-        android:id="@+id/debug_getAll_cat_btn"
-        android:layout_below="@+id/debug_getAll_word_btn"
+        android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="3dp"
+        android:drawSelectorOnTop="true"
+        android:listSelector="@android:color/transparent"
+        android:layout_below="@+id/linearLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
 
 </RelativeLayout>

@@ -55,6 +55,7 @@ public class MyActivity extends ActionBarActivity implements ActionBar.TabListen
         wordDB = new WordDB(this);
         wordDB.createCategory();
         wordDB.createWord();
+        wordDB.createFavorite();
         /////////////////////////////////////////////////////////////////////////////////////
 
         //เชื่อม Adaptor กับ View ใน activity_maim
@@ -92,6 +93,7 @@ public class MyActivity extends ActionBarActivity implements ActionBar.TabListen
 
 
     }
+
     //Actionbar.TabListener
     @Override
     public void onTabSelected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {

@@ -56,19 +56,19 @@ public class FavoriteDAO {
         values.put(DBHelper.COLUMN_FAVORITE_WORD_ID, word.getmId());
 
         //insert row and id category
-        long insertID = mDatebase.insert(DBHelper.TABLE_WORDS, null, values);
+        long insertID = mDatebase.insert(DBHelper.TABLE_FAVORITE, null, values);
 
         //Log-Debug addFavorite
         //Check Word ID
         if (insertID > 0) {
-            Message.shortToast(mContext, TAG, "Create " + insertID + " " + word);
+            Message.LogE("addFavorite", "Create " + insertID + " : " + word.getmWord());
         } else {
-            Message.shortToast(mContext, TAG, "No Word");
+            Message.LogE("addFavorite", "No Word");
         }
     }
 
     //HashMap<String,Word>
-    public HashMap<Long,Favorite> getAllFavorite(){
+/*    public HashMap<Long,Favorite> getAllFavorite(){
 
         HashMap<Long,Favorite> favorities = new HashMap<>();
         word = new Word();
@@ -83,7 +83,7 @@ public class FavoriteDAO {
 
             while (!cursor.isAfterLast()) {
                 favorite = cursorToFavorite(cursor);
-                favorities.put(favorite.getmId(), favorite);
+                favorities.put(favorite.getWord().getmId(), favorite);
 
                 //Log-Debug getAllFavorite
                 Message.LogE(TAG, favorite.getmId() + " : " + favorite.getWord().getmId());
@@ -98,19 +98,56 @@ public class FavoriteDAO {
         return favorities;
     }
 
-    public void getAllFavoriteWord(){
-        HashMap<String, Favorite> favoritiesWord;
-        HashMap<Long, Word> wordsHashmap;
-        word = new Word();
+    public HashMap<Long, Word> getAllFavoriteWord(){
+        HashMap<Long, Word> favoritesWord = new HashMap<>();
         WordDAO wordDAO = new WordDAO(mContext);
 
-        wordsHashmap = wordDAO.getAllWordHashMapLong();
+        HashMap<Long, Favorite> favoriteHashMap = getAllFavorite();
+        HashMap<Long, Word> wordsHashMap = wordDAO.getAllWordHashMapLong();
 
-        for (long favKey : getAllFavorite().keySet()){
-           /* word.get(favKey)
-            favoritiesWord.put(*/
+
+        for (long favKey : favoriteHashMap.keySet()){
+            for (long wordKey : wordsHashMap.keySet()){
+                if (favKey == wordsHashMap.get(wordKey).getmId())
+                    favoritesWord.put(wordKey,wordsHashMap.get(wordKey));
+            }
         }
 
+        return favoritesWord;
+
+    }*/
+
+    public HashMap<Long,Word> getAllFavorite(){
+
+        WordDAO wordDAO = new WordDAO(mContext);
+        HashMap<Long,Word> favoritiesHashMap = new HashMap<>();
+        HashMap<Long, Word> wordsHashMap = wordDAO.getAllWordHashMapLong();
+        word = new Word();
+
+        //Selsect all
+        //SELECT ALL FROM favorite
+        Cursor cursor = mDatebase.query(DBHelper.TABLE_FAVORITE, mAllColumns,
+                null, null, null, null, null);
+
+        if(cursor!=null) {
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()) {
+                favorite = cursorToFavorite(cursor);
+                favoritiesHashMap.put(favorite.getWord().getmId(),
+                        wordsHashMap.get(favorite.getWord().getmId()));
+
+                //Log-Debug getAllFavorite
+                Message.LogE(TAG, favorite.getmId() + " : " + favorite.getWord().getmId());
+
+                //move cursor
+                cursor.moveToNext();
+            }
+        } else {
+            Message.longToast(mContext, TAG, "Cursor not create");
+        }
+
+        return favoritiesHashMap;
     }
 
     public void deleteFavorite(){

@@ -67,6 +67,15 @@ public class WordDB {
 
     }
 
+    public void createFavorite(){
+        FavoriteDAO favoriteDAO = new FavoriteDAO(mContext);
+
+        favoriteDAO.addFavorite(new Word(1,"A", "เอ", null, null));
+        favoriteDAO.addFavorite(new Word(2,"Air", "แอร์", null, null));
+        favoriteDAO.addFavorite(new Word(11,"G", "จี", null, null));
+        favoriteDAO.addFavorite(new Word(10,"H", "เฮซ", null, null));
+    }
+
     //Getting Index of an item in an arraylist;
     public int getIndexByName(String name){
         for(String word : mCategory){

@@ -9,9 +9,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.HashMap;
-import java.util.List;
 
 import nd.dictsv.DAO.Category;
+import nd.dictsv.DAO.FavoriteDAO;
 import nd.dictsv.DAO.Word;
 import nd.dictsv.Debug.Message;
 import nd.dictsv.R;
@@ -26,25 +26,31 @@ public class CustomAdapter2 extends BaseAdapter{
     private LayoutInflater mInflater;
     private Context mContext;
 
-    private HashMap<Long,Word> words;
+    private FavoriteDAO favoriteDAO;
+
+    private HashMap<Long,Word> wordsHashMap;
     private HashMap<Integer,Category> categories;
     private Long[] mWordKey;
+
     private Category category;
+    private Word word;
+
 
     public CustomAdapter2(Context context, HashMap<Long,Word> words,
                           HashMap<Integer,Category> categories) {
         this.mContext = context;
-        this.words = words;
+        this.wordsHashMap = words;
         this.mWordKey = words.keySet().toArray(new Long[words.size()]);
         this.categories = categories;
         this.mInflater = (LayoutInflater)mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.favoriteDAO = new FavoriteDAO(context);
     }
 
     @Override
     //Show Count list item
     public int getCount() {
-        return words.size();
+        return wordsHashMap.size();
     }
 
     @Override
@@ -83,7 +89,7 @@ public class CustomAdapter2 extends BaseAdapter{
 
         //update content in convertView
         ///Word
-        Word word = words.get(mWordKey[position]);
+        word = wordsHashMap.get(mWordKey[position]);
         mViewHolder.word.setText(word.getmWord());
         Message.LogE("Customaadapter", word.getmWord()+"");//TODO D
         if(word.getmTermino()!=null) {
@@ -91,18 +97,20 @@ public class CustomAdapter2 extends BaseAdapter{
         } else {
             mViewHolder.trans.setText(word.getmTrans());
         }
+
         ///Category
         category = new Category();
         category = word.getmCategory();
-        //String categoryName = categories.get(category.getmId()).getmName();
         Message.LogE("Customaadapter", category.getmId()+"");//TODO D
         String categoryName = categories.get(category.getmId()).getmName();
         mViewHolder.category.setText(categoryName);
+
         ///favorite
         mViewHolder.favImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                favoriteDAO.addFavorite(word);
+                Message.LogE("favImage.setOnClickListener", word.getmWord());
             }
         });
 
