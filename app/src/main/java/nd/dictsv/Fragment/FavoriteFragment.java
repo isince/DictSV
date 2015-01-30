@@ -39,8 +39,8 @@ public class FavoriteFragment extends Fragment {
         categoryDAO = new CategoryDAO(getActivity());
         favoriteDAO = new FavoriteDAO(getActivity());
 
-        ViewPager viewPager = (ViewPager) container;
-        ((ViewPager) container).setCurrentItem(1);
+        listViewFavorite.setAdapter(new CustomAdapter2(getActivity(),
+                favoriteDAO.getAllFavorite(), categoryDAO.getAllCategoryHashmap()));
 
         return rootView;
     }
