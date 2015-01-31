@@ -1,40 +1,33 @@
 package nd.dictsv;
 
-
 import android.app.FragmentTransaction;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
-
+import nd.dictsv.Adaptor.CustomAdapter2;
 import nd.dictsv.Adaptor.TabPageAdapter;
-import nd.dictsv.DAO.Category;
 import nd.dictsv.DAO.DBHelper;
-import nd.dictsv.DAO.Word;
 import nd.dictsv.DAO.WordDB;
+import nd.dictsv.Debug.Message;
+import nd.dictsv.Fragment.FavoriteFragment;
 
 
 public class MyActivity extends ActionBarActivity implements ActionBar.TabListener{
-    /////////////////////////////////
+
     private ViewPager mViewPager;
     private TabPageAdapter mTapAdapter;
-    //private android.app.ActionBar mActionBar; // Actionbar เฉยๆไม่ได้
     private ActionBar actionBar;
+
     //Tab title
-    private String[] tabs = {"Search", "Favorited", "Edit"};
-    //////////////////////////////////
+    private String[] Tabs;
 
     DBHelper mDBHelper;
     SQLiteDatabase mDb;
-
     WordDB wordDB;
 
     @Override
@@ -42,63 +35,87 @@ public class MyActivity extends ActionBarActivity implements ActionBar.TabListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 
+        Tabs = new String[]{getResources().getString(R.string.Tab_tittle_search),
+                            getResources().getString(R.string.Tab_tittle_Favorited),
+                            getResources().getString(R.string.Tab_tittle_Edit)};
+
         /////////////////////////////////////////////////////////////////////////////////////
         //Datebase
         mDBHelper = new DBHelper(this);
         mDb = mDBHelper.getWritableDatabase();
 
-        //Renew Database
+        ////Renew Database
         mDBHelper.onUpgrade(mDb, 1, 1);
         mDb.close();
 
-        //add Data
+        ////add Data
         wordDB = new WordDB(this);
         wordDB.createCategory();
         wordDB.createWord();
         wordDB.createFavorite();
         /////////////////////////////////////////////////////////////////////////////////////
 
-        //เชื่อม Adaptor กับ View ใน activity_maim
+        ////////////////////////////////////////////////////////////////////////////////////
+        //ViewPager
+        ////Matching view
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        // set Adapter
+        ////Set Adapter
         mTapAdapter = new TabPageAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mTapAdapter);
-        //จบเชื่อม จะทำแค่ส่วนนี้ก็ได้แต่จะไม่มี Tab แค่ swipe ซ้ายขวาได้อยางเดียว
 
+        //ActionBar Tab
         actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        for (String Tab_name : tabs){
-            actionBar.addTab(actionBar.newTab().setText(Tab_name)
-                    .setTabListener(this));
+        for(String TabName : Tabs){
+            actionBar.addTab(actionBar.newTab().setText(TabName).setTabListener(this));
         }
-        // set Listener in View
+        ////////////////////////////////////////////////////////////////////////////////////
+
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            //auto Implement 3 method
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                //Message.LogE("onPageScrolled", "");
             }
 
             @Override
             public void onPageSelected(int position) {
-                Log.i("Check","mViewpager >> "+position);
+                Message.LogE("onPageSelected", String.valueOf(position));
+                /*//((TabPageAdapter) mViewPager.getAdapter()).getLog();
+                Fragment fragment = ((FragmentPagerAdapter) mViewPager.getAdapter()).getItem(position);
+
+                if (position == 1 && fragment != null) {
+                    Message.LogE("onPageSelected", "fragment !null");
+                    //fragment.onResume();
+                    //fragment.onDestroy();
+                    //FavoriteFragment.newInstance();
+
+                } else {
+                    Message.LogE("onPageSelected", "null");
+                }*/
+
+                Fragment fragment = getActiveFragment(mViewPager, 1);
+                FavoriteFragment favoriteFragment = (FavoriteFragment)fragment;
+                if(favoriteFragment!=null && position == 1 && CustomAdapter2.chk) {
+                    favoriteFragment.setAdapter();
+                    CustomAdapter2.chk = false;
+                }
                 actionBar.setSelectedNavigationItem(position);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                //Message.LogE("onPageScrollStateChanged", String.valueOf(state));
             }
         });
-
-
     }
 
-    //Actionbar.TabListener
+    public Fragment getActiveFragment(ViewPager container, int position) {
+        String name = "android:switcher:" + container.getId() + ":" + position;
+        return getSupportFragmentManager().findFragmentByTag(name);
+    }
+
     @Override
     public void onTabSelected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
-        Log.i("Check","setCurentItem Position >> "+tab.getPosition());
-        //
         mViewPager.setCurrentItem(tab.getPosition());
     }
 
@@ -111,25 +128,5 @@ public class MyActivity extends ActionBarActivity implements ActionBar.TabListen
     public void onTabReselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
 
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
 }
 

@@ -3,7 +3,7 @@
 
     <string name="app_name">DictSV</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings" translatable="false">Settings</string>
+    <string name="action_settings">Settings</string>
     <string name="inputSearch">กรุณาค้นหา...</string>
     <string name="Search" translatable="false">Favorite</string>
     <string name="Edit" translatable="false">EditFrag</string>
@@ -11,7 +11,7 @@
 
     <string name="tv_cat">หมวดหมู่</string>
 
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main" translatable="false">MainActivity</string>
     <!--<string name="title_activity_te">te</string>-->
     <!--<string name="title_activity_my_activity2">MyActivity2</string>-->
 
@@ -37,4 +37,7 @@
     <string name="category_submit_edit_btn">แก้ไข</string>
     <string name="category_name_edit_hint_tv">เปลี่ยนชื่อหมวด</string>
     <string name="category_name_add_hint_tv">เพิ่มหมวดใหม่</string>
+    <string name="Tab_tittle_search">ค้นหา</string>
+    <string name="Tab_tittle_Favorited">Favorited</string>
+    <string name="Tab_tittle_Edit">Edit</string>
 </resources>

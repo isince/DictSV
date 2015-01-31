@@ -1,6 +1,7 @@
 package nd.dictsv.Fragment;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -16,13 +17,12 @@ import android.widget.ListView;
 import java.util.HashMap;
 import java.util.List;
 
-import nd.dictsv.Adaptor.CustomAdapter2;
-import nd.dictsv.DAO.CategoryDAO;
+import nd.dictsv.AsyncTask.SearchingTask2;
 import nd.dictsv.DAO.Word;
 import nd.dictsv.DAO.WordDAO;
 import nd.dictsv.Debug.Message;
 import nd.dictsv.R;
-import nd.dictsv.SearchingTask;
+import nd.dictsv.AsyncTask.SearchingTask;
 
 
 /**
@@ -32,13 +32,18 @@ public class SearchFragment extends Fragment {
 
     private static final String TAG = "SearchFragment";
 
+    public static SearchFragment newInstance(){
+        SearchFragment fragment = new SearchFragment();
+        return fragment;
+    }
+
     private View rootView;
     EditText edt_search;
     ListView listViewSearch;
 
     private List<Word> words;
-    HashMap<String, Word> wordHashMap;
-    HashMap<Long, Word> wordHashMapLong;
+    public HashMap<String, Word> wordHashMap;
+    public HashMap<Long, Word> wordHashMapLong;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,14 +57,15 @@ public class SearchFragment extends Fragment {
         WordDAO wordDAO = new WordDAO(getActivity());
         //words = wordDAO.getAllWord();
         //TODO john
-        wordHashMap = wordDAO.getAllWordHashMap();
-        wordHashMapLong = wordDAO.getAllWordHashMapLong();
+        //wordHashMap = wordDAO.getAllWordHashMap();
+//        wordHashMapLong = wordDAO.getAllWordHashMapLong();
 
+        //new getWordTask().execute();
 
-        if (wordHashMapLong.isEmpty()) Message.shortToast(getActivity(), TAG, "Empty");
-        CustomAdapter2 customAdapter2 = new CustomAdapter2(getActivity(), wordHashMapLong,
-                new CategoryDAO(getActivity()).getAllCategoryHashmap());
-        listViewSearch.setAdapter(customAdapter2);
+        //if (wordHashMapLong.isEmpty()) Message.shortToast(getActivity(), TAG, "Empty");
+//        CustomAdapter2 customAdapter2 = new CustomAdapter2(getActivity(), wordHashMapLong,
+//                new CategoryDAO(getActivity()).getAllCategoryHashmap());
+//        listViewSearch.setAdapter(customAdapter2);
 
         edt_search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -81,8 +87,10 @@ public class SearchFragment extends Fragment {
                     listViewSearch.setAdapter(null);
                 } else {
 
-                    SearchingTask searchingTask = new SearchingTask(getActivity(), listViewSearch,
-                            inputText, wordHashMapLong);
+                    /*SearchingTask searchingTask = new SearchingTask(getActivity(), listViewSearch,
+                            inputText, wordHashMapLong);*/
+                    SearchingTask2 searchingTask = new SearchingTask2(getActivity(), listViewSearch,
+                            inputText, 0);
                     searchingTask.execute();
                 }
 
@@ -92,4 +100,23 @@ public class SearchFragment extends Fragment {
 
         return rootView;
     }
+
+    //AsyncTask
+    private class getWordTask extends AsyncTask<Void, Integer, Void>{
+        WordDAO wordDAO;
+
+        @Override
+        protected void onPreExecute() {
+            wordDAO = new WordDAO(getActivity());
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            wordHashMapLong = wordDAO.getAllWordHashMapLong();
+
+            return null;
+        }
+    }
+
 }

@@ -1,6 +1,5 @@
 package nd.dictsv.Fragment;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -9,12 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import nd.dictsv.DAO.Category;
@@ -22,6 +19,8 @@ import nd.dictsv.DAO.CategoryDAO;
 import nd.dictsv.DAO.Word;
 import nd.dictsv.DAO.WordDAO;
 import nd.dictsv.Debug.Message;
+import nd.dictsv.Interface.getDataTask;
+import nd.dictsv.AsyncTask.getSpinnerTask;
 import nd.dictsv.R;
 
 
@@ -29,15 +28,20 @@ import nd.dictsv.R;
  * Created by ND on 9/7/2557.
  */
 
-public class EditFragment extends Fragment {
+public class EditFragment extends Fragment implements getDataTask {
 
     private final String TAG = "EditFragment";
 
-    Cursor mCorsor;
+    public static EditFragment newInstance(){
+        EditFragment fragment = new EditFragment();
+        return fragment;
+    }
+
     WordDAO wordDAO;
     CategoryDAO categoryDAO;
-
+    List<String> categorylist;
     Category category;
+
     Word word;
 
     private EditText edt_vocab_word, edt_vocab_termino, edt_vocab_trans, edt_cat_name;
@@ -154,17 +158,8 @@ public class EditFragment extends Fragment {
                 else btn_cat_save.setEnabled(true);
             }
         });
-        return rootView;
-    }
 
-    public void CheckVocab() {
-        Message.LogE("afterTextChanged", "Vocab");
-        if (!isEmpty(edt_vocab_word) && (!isEmpty(edt_vocab_termino) || !isEmpty(edt_vocab_trans))
-                && vocabCatID > 0) {
-            btn_vocab_save.setEnabled(true);
-        } else {
-            btn_vocab_save.setEnabled(false);
-        }
+        return rootView;
     }
 
     public void addWord() {
@@ -197,7 +192,7 @@ public class EditFragment extends Fragment {
         LoadCateSpinner();
     }
 
-    public void addCategory() {
+/*    public void addCategory() {
         Boolean chk = false;
         category = new Category();
         categoryDAO = new CategoryDAO(getActivity());
@@ -224,11 +219,42 @@ public class EditFragment extends Fragment {
 
         clearEditText();
         LoadCateSpinner();
+    }*/
+
+    public void addCategory() {
+        categoryDAO = new CategoryDAO(getActivity());
+
+        Boolean chk = false;
+
+        category = new Category();
+        category = getTextToCategory();
+
+        if (!isEmpty(edt_cat_name)) {
+            Message.toast2(getActivity(), "have text");
+            if (cateSpinerCatID == 0) {//New
+                for (String categoryName : categorylist){
+                    if(category.getmName().trim().equals(categoryName)){
+                        Message.LogE("addCategory forLoop","พบหมวดซ้ำ-"+category.getmName());
+                        chk = false;
+                    }
+                    else chk = true;
+                }
+                if(chk) categoryDAO.addCategory(category.getmName().trim());
+            } else {//Edit
+                categoryDAO.updateCategory(category);
+            }
+        } else {
+            Message.toast2(getActivity(), "EditText is Empty");
+        }
+
+        clearEditText();
+        LoadCateSpinner();
     }
 
     public void deleteCategory() {
-        category = new Category();
         CategoryDAO categoryDAO = new CategoryDAO(getActivity());
+
+        category = new Category();
         category = getTextToCategory();
 
         //TODO john create confirm dialog
@@ -247,7 +273,7 @@ public class EditFragment extends Fragment {
         clearEditText();
     }
 
-    public Cursor LoadCateSpinner() {
+    /*public void LoadCateSpinner2() {
 
         final CategoryDAO categoryDAO = new CategoryDAO(getActivity());
 
@@ -286,8 +312,6 @@ public class EditFragment extends Fragment {
 
             }
         });
-
-
         spn_cat_list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -322,10 +346,71 @@ public class EditFragment extends Fragment {
 
             }
         });
-        return mCorsor;
+    }*/
+
+    public void LoadCateSpinner() {
+
+        final CategoryDAO categoryDAO = new CategoryDAO(getActivity());
+
+        getSpinnerTask getSpinnerTask = new getSpinnerTask(getActivity(),
+                spn_vocab_cat_list, spn_cat_list, this);
+        getSpinnerTask.execute();
+
+        spn_vocab_cat_list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //set position item
+                //id+=1;
+                vocabSpinerCatID = (int) id + 1;
+                //cateSpinerCatName = CategoryList2.get(vocabSpinerCatID);
+                Category category = categoryDAO.getCatIDByName(categorylist.get(vocabSpinerCatID));
+                vocabCatID = category.getmId();
+                //Log-Debug Toast onItemSelected category
+                Message.LogE("onItemSelected", "vocabCatID : " + vocabCatID);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spn_cat_list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //set position item
+                cateSpinerCatID = (int) id;
+
+                //set enable button
+                if(cateSpinerCatID>0) btn_cat_delete.setEnabled(true);
+                else btn_cat_delete.setEnabled(false);
+
+                Category category = categoryDAO.getCatIDByName(categorylist.get(cateSpinerCatID));
+                cateCatID = category.getmId();
+                //Log-Debug Toast onItemSelected category
+                Message.LogE("onItemSelected", "cateCatID : " + cateCatID);
+                if (id == 0) {//New category
+                    //setText create
+                    btn_cat_save.setText(R.string.category_submit_add_btn);
+                    edt_cat_name.setHint(R.string.category_name_add_hint_tv);
+                    //Log-Debug Toast onItemSelected category
+                    //Message.toast2(getActivity(), "New Category : " + cateSpinerCatID);
+                } else {
+                    //setText Edit
+                    btn_cat_save.setText(R.string.category_submit_edit_btn);
+                    edt_cat_name.setHint(R.string.category_name_edit_hint_tv);
+                    //Log-Debug Toast onItemSelected category
+                    //Message.toast2(getActivity(), "Edit Category: " + cateSpinerCatID);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
-    //Layout frame
     private void initWidget() {
         //initWidgetVocab
         edt_vocab_word = (EditText) rootView.findViewById(R.id.vocab_word_edt);
@@ -343,7 +428,7 @@ public class EditFragment extends Fragment {
         btn_cat_clear = (Button) rootView.findViewById(R.id.cat_clear_btn);
         btn_cat_delete = (Button) rootView.findViewById(R.id.cat_delete_btn);
 
-    }//initWidget
+    }
 
     private Word getTextToWord() {
         Word word = new Word();
@@ -371,6 +456,16 @@ public class EditFragment extends Fragment {
         return editText.getText().toString().trim().length() == 0;
     }
 
+    public void CheckVocab() {
+        Message.LogE("afterTextChanged", "Vocab");
+        if (!isEmpty(edt_vocab_word) && (!isEmpty(edt_vocab_termino) || !isEmpty(edt_vocab_trans))
+                && vocabCatID > 0) {
+            btn_vocab_save.setEnabled(true);
+        } else {
+            btn_vocab_save.setEnabled(false);
+        }
+    }
+
     private void clearEditText() {
         //Vocab
         edt_vocab_word.setText("");
@@ -379,5 +474,12 @@ public class EditFragment extends Fragment {
 
         //Category
         edt_cat_name.setText("");
-    }//clearText
+    }
+
+    @Override
+    public void getCategories(List<String> categories) {
+        Message.LogE("loadSpinnerTask", "getCategories");
+        this.categorylist = categories;
+    }
+
 }

@@ -22,7 +22,6 @@ public class CategoryDAO {
 
     private Context mContext;
     private Category category;
-    private ArrayList<Category> listCategoryObj;
     private ArrayList<String> listCategory;
 
     //Database field

@@ -23,6 +23,10 @@
     <string name="category_delete_btn">Delete</string>
     <string name="category_name_add_hint_tv">New category name</string>
     <string name="category_name_edit_hint_tv">Edit category</string>
+    <string name="Tab_tittle_Edit">Edit</string>
+    <string name="Tab_tittle_Favorited">Favorited</string>
+    <string name="Tab_tittle_search">Search</string>
+    <string name="action_settings">Settings</string>
 
 
 </resources>

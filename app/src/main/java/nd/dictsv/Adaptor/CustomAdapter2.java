@@ -1,6 +1,8 @@
 package nd.dictsv.Adaptor;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import nd.dictsv.DAO.Category;
 import nd.dictsv.DAO.FavoriteDAO;
 import nd.dictsv.DAO.Word;
 import nd.dictsv.Debug.Message;
+import nd.dictsv.Fragment.FavoriteFragment;
 import nd.dictsv.R;
 
 /**
@@ -22,6 +25,8 @@ import nd.dictsv.R;
 public class CustomAdapter2 extends BaseAdapter{
 
     private static final String TAG = "CustomAdapter2";
+
+    public static boolean chk = false;
 
     private LayoutInflater mInflater;
     private Context mContext;
@@ -35,7 +40,6 @@ public class CustomAdapter2 extends BaseAdapter{
     private Category category;
     private Word word;
 
-
     public CustomAdapter2(Context context, HashMap<Long,Word> words,
                           HashMap<Integer,Category> categories) {
         this.mContext = context;
@@ -45,6 +49,8 @@ public class CustomAdapter2 extends BaseAdapter{
         this.mInflater = (LayoutInflater)mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.favoriteDAO = new FavoriteDAO(context);
+
+
     }
 
     @Override
@@ -89,6 +95,7 @@ public class CustomAdapter2 extends BaseAdapter{
 
         //update content in convertView
         ///Word
+        //word = wordsHashMap.get(mWordKey[position]);
         word = wordsHashMap.get(mWordKey[position]);
         mViewHolder.word.setText(word.getmWord());
         Message.LogE("Customaadapter", word.getmWord()+"");//TODO D
@@ -106,11 +113,16 @@ public class CustomAdapter2 extends BaseAdapter{
         mViewHolder.category.setText(categoryName);
 
         ///favorite
+        mViewHolder.favImage.setTag(position);
         mViewHolder.favImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                favoriteDAO.addFavorite(word);
-                Message.LogE("favImage.setOnClickListener", word.getmWord());
+                //favoriteDAO.addFavorite(word);
+                //Long id = (Long)v.getTag();
+                Message.LogE("favImage.setOnClickListener", String .valueOf(v.getTag()));
+                favoriteDAO.addFavorite(wordsHashMap.get(mWordKey[Integer.valueOf(v.getTag().toString())]));
+                chk = true;
+
             }
         });
 
@@ -136,6 +148,4 @@ public class CustomAdapter2 extends BaseAdapter{
         public ImageButton favImage;
         public ImageButton voiceImage;
     }
-
-
 }

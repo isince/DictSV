@@ -1,4 +1,4 @@
-package nd.dictsv;
+package nd.dictsv.AsyncTask;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -9,28 +9,48 @@ import java.util.HashMap;
 import nd.dictsv.Adaptor.CustomAdapter2;
 import nd.dictsv.DAO.Category;
 import nd.dictsv.DAO.CategoryDAO;
+import nd.dictsv.DAO.Favorite;
+import nd.dictsv.DAO.FavoriteDAO;
 import nd.dictsv.DAO.Word;
+import nd.dictsv.DAO.WordDAO;
 
 /**
- * Created by Since on 28/1/2558.
+ * Created by Since on 1/2/2558.
  */
-public class SearchingTask extends AsyncTask<HashMap<Long,Word>, Integer, HashMap<Long,Word>> {
+public class SearchingTask2 extends AsyncTask<HashMap<Long,Word>, Integer, HashMap<Long,Word>> {
 
     Context mContext;
-    String inputText;
-    HashMap<Long, Word> words;
-    ListView listView;
+    ListView mListview;
 
-    public SearchingTask(Context context, ListView listView,
-                         String inputText, HashMap<Long, Word> words) {
+    CategoryDAO categoryDAO;
+    FavoriteDAO favoriteDAO;
+    WordDAO wordDAO;
+
+    HashMap<Long, Word> words;
+    String inputText;
+    int categoryID;
+
+    public SearchingTask2(Context context, ListView listView,
+                         String inputText, int catergoryID) {
         this.mContext = context;
+        this.mListview = listView;
         this.inputText = inputText;
-        this.words = words;
-        this.listView = listView;
+        this.categoryID = catergoryID;
+
     }
 
     @Override
     protected void onPreExecute() {
+        wordDAO = new WordDAO(mContext);
+        favoriteDAO = new FavoriteDAO(mContext);
+        if(categoryID==0 && inputText.equals(String.valueOf(0))) { //favorite tab
+            words = favoriteDAO.getAllFavorite();
+        } else if (categoryID==0){ //Search tab
+            words = wordDAO.getAllWordHashMapLong();
+        } else {
+            //TODO john เลือกคำศัพท์ตามหมวด
+            //words = wordDAO.getWordByCategoryID(categoryID);
+        }
     }
 
     @Override
@@ -72,25 +92,23 @@ public class SearchingTask extends AsyncTask<HashMap<Long,Word>, Integer, HashMa
                         e.printStackTrace();
                     }
                 }
+            } else if (inputText.matches(String.valueOf(0))) {
+                /**
+                 *  For favorite tab
+                 *  ดึงค่าทั้งหมดที่รับเข้ามา
+                 */
+                AutoText_Words = words;
             }
+
             return AutoText_Words;
         }
     }
 
-
     @Override
     protected void onPostExecute(HashMap<Long, Word> words) {
-        CategoryDAO categoryDAO = new CategoryDAO(mContext);
-        //List<Category> categories = categoryDAO.getAllCategory();
+        categoryDAO = new CategoryDAO(mContext);
         HashMap<Integer,Category> categories = categoryDAO.getAllCategoryHashmap();
 
-        /*HashMap<String, Category> categoryHashMap = new HashMap<>();
-        //List<Category> categories = categoryDAO.getAllCategory();
-        for (Category category : categoryDAO.getAllCategory()) {
-            categoryHashMap.put(category.getmName(), category);
-        }*/
-
-        //return new CustomAdapter2(mContext, words, categories);
-        listView.setAdapter(new CustomAdapter2(mContext, words, categories));
+        mListview.setAdapter(new CustomAdapter2(mContext, words, categories));
     }
 }

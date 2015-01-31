@@ -58,11 +58,32 @@
         <dex dex="D:\Work\002_Android\02_Project Work\580125_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\classes-7a149f3665230d811421d5edae3ab99bccf6101c.jar" />
     </item>
     <item
+        jar="D:\Work\002_Android\02_Project Work\580130_DictSV\DictSV\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="D:\Work\002_Android\02_Project Work\580130_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-3f534c5dcc12a67fad746c7e4cab85b8baa0b8fe.jar" />
+    </item>
+    <item
+        jar="D:\Work\002_Android\02_Project Work\580130_DictSV\DictSV\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="D:\Work\002_Android\02_Project Work\580130_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\classes-a692fbc4a2cc40df0c96381a4fc9b13989a0d1d8.jar" />
+    </item>
+    <item
         jar="D:\Work\002_Android\01_Prototype\580118_DictSV\DictSV\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
         <dex dex="D:\Work\002_Android\01_Prototype\580118_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\classes-c14ca7751c05ca4d5203c30126a963f7cb385027.jar" />
+    </item>
+    <item
+        jar="D:\Work\002_Android\02_Project Work\580130_DictSV\DictSV\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="D:\Work\002_Android\02_Project Work\580130_DictSV\DictSV\app\build\intermediates\pre-dexed\debug\classes-10386c52acadd67c6bc8a3eb8e97542abd711b2c.jar" />
     </item>
     <item
         jar="C:\Users\Since\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
