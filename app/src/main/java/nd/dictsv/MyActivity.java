@@ -1,6 +1,5 @@
 package nd.dictsv;
 
-import android.app.FragmentTransaction;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
@@ -95,9 +94,9 @@ public class MyActivity extends ActionBarActivity implements ActionBar.TabListen
 
                 Fragment fragment = getActiveFragment(mViewPager, 1);
                 FavoriteFragment favoriteFragment = (FavoriteFragment)fragment;
-                if(favoriteFragment!=null && position == 1 && CustomAdapter2.chk) {
+                if(favoriteFragment!=null && position == 1 && CustomAdapter2.chkFavoriteList) {
                     favoriteFragment.setAdapter();
-                    CustomAdapter2.chk = false;
+                    CustomAdapter2.chkFavoriteList = false;
                 }
                 actionBar.setSelectedNavigationItem(position);
             }

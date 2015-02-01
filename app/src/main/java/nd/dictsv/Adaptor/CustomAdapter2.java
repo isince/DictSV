@@ -1,8 +1,6 @@
 package nd.dictsv.Adaptor;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +11,10 @@ import android.widget.TextView;
 import java.util.HashMap;
 
 import nd.dictsv.DAO.Category;
+import nd.dictsv.DAO.Favorite;
 import nd.dictsv.DAO.FavoriteDAO;
 import nd.dictsv.DAO.Word;
 import nd.dictsv.Debug.Message;
-import nd.dictsv.Fragment.FavoriteFragment;
 import nd.dictsv.R;
 
 /**
@@ -26,19 +24,22 @@ public class CustomAdapter2 extends BaseAdapter{
 
     private static final String TAG = "CustomAdapter2";
 
-    public static boolean chk = false;
+    public static boolean chkFavoriteList = false;
 
     private LayoutInflater mInflater;
     private Context mContext;
-
+    ViewHolder mViewHolder;
     private FavoriteDAO favoriteDAO;
 
     private HashMap<Long,Word> wordsHashMap;
     private HashMap<Integer,Category> categories;
+    private HashMap<Long,Favorite> favorites;
     private Long[] mWordKey;
+    private Long[] mFavoritekey;
 
     private Category category;
     private Word word;
+    private Favorite favoriteWord;
 
     public CustomAdapter2(Context context, HashMap<Long,Word> words,
                           HashMap<Integer,Category> categories) {
@@ -49,7 +50,8 @@ public class CustomAdapter2 extends BaseAdapter{
         this.mInflater = (LayoutInflater)mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.favoriteDAO = new FavoriteDAO(context);
-
+        this.favorites = favoriteDAO.getAllFavorite();
+        this.mFavoritekey = favorites.keySet().toArray(new Long[favorites.size()]);
 
     }
 
@@ -72,7 +74,7 @@ public class CustomAdapter2 extends BaseAdapter{
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        ViewHolder mViewHolder;
+        //ViewHolder mViewHolder;
         if(convertView==null){
             mViewHolder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.search_list_item, parent, false);
@@ -113,16 +115,29 @@ public class CustomAdapter2 extends BaseAdapter{
         mViewHolder.category.setText(categoryName);
 
         ///favorite
+
         mViewHolder.favImage.setTag(position);
+        if (favorites.get(word.getmId())!=null) {
+            mViewHolder.favImage.setImageResource(R.drawable.ic_star_20dp);
+        } else {
+            mViewHolder.favImage.setImageResource(R.drawable.ic_star_outline_20dp);
+        }
         mViewHolder.favImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                //favoriteDAO.addFavorite(word);
-                //Long id = (Long)v.getTag();
-                Message.LogE("favImage.setOnClickListener", String .valueOf(v.getTag()));
-                favoriteDAO.addFavorite(wordsHashMap.get(mWordKey[Integer.valueOf(v.getTag().toString())]));
-                chk = true;
+            public void onClick(View view) {
+                view.setSelected(!view.isSelected());
+                if (view.isSelected()) {
+                    //favoriteDAO.addFavorite(word);
+                    //Long id = (Long)view.getTag();
+                    Message.LogE("favImage.setOnClickListener", String.valueOf(view.getTag())); //TODO D
+                    //if(favorites.get(position))
+                    favoriteDAO.addFavorite(wordsHashMap.get(
+                            mWordKey[Integer.valueOf(view.getTag().toString())]));
+                    //mViewHolder.favImage.setImageResource(R.drawable.ic_star_20dp);
+                    chkFavoriteList = true;
+                } else {
 
+                }
             }
         });
 
@@ -130,7 +145,7 @@ public class CustomAdapter2 extends BaseAdapter{
         convertView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Message.toast2(mContext, "LongClick ID : " + position);
+                Message.toast2(mContext, "LongClick ID : " + position);  //TODO D
                 return true;
                 //return false;
             }

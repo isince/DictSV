@@ -27,6 +27,7 @@ public class SearchingTask2 extends AsyncTask<HashMap<Long,Word>, Integer, HashM
     WordDAO wordDAO;
 
     HashMap<Long, Word> words;
+    HashMap<Long, Favorite> favorites;
     String inputText;
     int categoryID;
 
@@ -44,7 +45,9 @@ public class SearchingTask2 extends AsyncTask<HashMap<Long,Word>, Integer, HashM
         wordDAO = new WordDAO(mContext);
         favoriteDAO = new FavoriteDAO(mContext);
         if(categoryID==0 && inputText.equals(String.valueOf(0))) { //favorite tab
-            words = favoriteDAO.getAllFavorite();
+            //words = favoriteDAO.getAllFavoriteWord();
+            favorites = favoriteDAO.getAllFavorite();
+            words = wordDAO.getAllWordHashMapLong();
         } else if (categoryID==0){ //Search tab
             words = wordDAO.getAllWordHashMapLong();
         } else {
@@ -95,11 +98,16 @@ public class SearchingTask2 extends AsyncTask<HashMap<Long,Word>, Integer, HashM
             } else if (inputText.matches(String.valueOf(0))) {
                 /**
                  *  For favorite tab
-                 *  ดึงค่าทั้งหมดที่รับเข้ามา
+                 *  fav
                  */
-                AutoText_Words = words;
+                Word word = new Word();
+                for(long keyFavorite : favorites.keySet()) {
+                    if (words.get(keyFavorite) != null)
+                        word = words.get(keyFavorite);
+                    AutoText_Words.put(word.getmId(), word);
+                }
+                //AutoText_Words = words;
             }
-
             return AutoText_Words;
         }
     }

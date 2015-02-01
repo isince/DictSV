@@ -1,5 +1,7 @@
 package nd.dictsv.Fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -252,17 +254,15 @@ public class EditFragment extends Fragment implements getDataTask {
     }
 
     public void deleteCategory() {
-        CategoryDAO categoryDAO = new CategoryDAO(getActivity());
+        categoryDAO = new CategoryDAO(getActivity());
 
         category = new Category();
         category = getTextToCategory();
 
-        //TODO john create confirm dialog
-
-        categoryDAO.deleteCategory(category);
-        /*TODO john return method
-        /*categoryDAO.deleteCategory must have return boolean
-        because it if easy to check success*/
+        /*categoryDAO.deleteCategory(category);
+        *//*TODO john return method
+        *//*categoryDAO.deleteCategory must have return boolean
+        because it if easy to check success*//*
 
 
         if (categoryDAO.getAllCategoryList().isEmpty()) {
@@ -270,7 +270,35 @@ public class EditFragment extends Fragment implements getDataTask {
             Message.LogE("if onNothingSelected", "vocabCatID : " + vocabCatID);
         }
         LoadCateSpinner();
-        clearEditText();
+        clearEditText();*/
+
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Confirm Delete")
+                .setMessage("Are you sure you want delete this category?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        categoryDAO.deleteCategory(category);
+
+                        //TODO john delete favoriteWord
+
+                        if (categoryDAO.getAllCategoryList().isEmpty()) {
+                            vocabCatID = 0;
+                            Message.LogE("if onNothingSelected", "vocabCatID : " + vocabCatID);
+                        }
+                        LoadCateSpinner();
+                        clearEditText();
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        clearEditText();
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 
     /*public void LoadCateSpinner2() {

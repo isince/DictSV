@@ -68,7 +68,7 @@ public class FavoriteDAO {
     }
 
     //HashMap<String,Word>
-/*    public HashMap<Long,Favorite> getAllFavorite(){
+    public HashMap<Long,Favorite> getAllFavorite(){
 
         HashMap<Long,Favorite> favorities = new HashMap<>();
         word = new Word();
@@ -97,7 +97,7 @@ public class FavoriteDAO {
 
         return favorities;
     }
-
+/*
     public HashMap<Long, Word> getAllFavoriteWord(){
         HashMap<Long, Word> favoritesWord = new HashMap<>();
         WordDAO wordDAO = new WordDAO(mContext);
@@ -117,7 +117,7 @@ public class FavoriteDAO {
 
     }*/
 
-    public HashMap<Long,Word> getAllFavorite(){
+    public HashMap<Long,Word> getAllFavoriteWord(){
 
         WordDAO wordDAO = new WordDAO(mContext);
         HashMap<Long,Word> favoritiesHashMap = new HashMap<>();

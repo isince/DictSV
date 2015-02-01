@@ -46,18 +46,6 @@ public class FavoriteFragment extends Fragment{
     }
 
     @Override
-    public void onResume() {
-        /*listViewFavorite = (ListView) rootView.findViewById(R.id.Favorite_listView);
-
-        listViewFavorite.setAdapter(new CustomAdapter2(this.getActivity(),
-                new FavoriteDAO(this.getActivity()).getAllFavorite(),
-                new CategoryDAO(this.getActivity()).getAllCategoryHashmap()));
-        Message.LogE("FavoriteFragment", "OnResume");*/
-        super.onResume();
-
-    }
-
-    @Override
     public void onStart() {
         Message.LogE("FavoriteFragment", "onStart");
 
@@ -68,7 +56,7 @@ public class FavoriteFragment extends Fragment{
         Message.LogE("FavoriteFragment", "setAdapter");
 
         /*SearchingTask searchingTask = new SearchingTask(getActivity(), listViewFavorite,
-                String.valueOf(0), new FavoriteDAO(this.getActivity()).getAllFavorite());*/
+                String.valueOf(0), new FavoriteDAO(this.getActivity()).getAllFavoriteWord());*/
         SearchingTask2 searchingTask = new SearchingTask2(getActivity(), listViewFavorite,
                 String.valueOf(0), 0);
         searchingTask.execute();
