@@ -29,6 +29,14 @@ public class MyActivity extends ActionBarActivity implements ActionBar.TabListen
     SQLiteDatabase mDb;
     WordDB wordDB;
 
+    /**
+     * - ลบ favorite word
+     * - ปุ่ม favorite
+     * - customDialog (longClick)
+     * - แก้ไขคำ - ลบคำ
+     * - Performance
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
